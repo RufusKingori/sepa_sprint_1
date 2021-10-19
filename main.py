@@ -1,6 +1,15 @@
-#This program is used by kings foods and beverages staff to order foods and drinks for it's customers.
+# This program is used by kings foods and beverages staff to order foods and drinks for it's customers.
 
-#This is the main menu
+# This is the main menu
+
+customer_list = [{'id': '2709', 'name': 'rufus', 'address': '40'},
+                 {'id': '1439', 'name': 'faith', 'address': '24'},
+                 {'id': '3520', 'name': 'amoon', 'address': '56'}]
+product_list = [{'id': '4056', 'name': 'fries', 'Quantity': '10', 'price': '200'},
+                {'id': '2589', 'name': 'buns', 'Quantity': '20', 'price': '120'},
+                {'id': '7860', 'name': 'smokies', 'Quantity': '32', 'price': '50'},
+                {'id': '7410', 'name': 'soda', 'Quantity': '55', 'price': '60'}]
+
 
 def main():
     print("*****Welcome to Kings foods and beverages*****")
@@ -22,33 +31,40 @@ def main():
     else:
         print("Please enter one of the options 1, 2, 3 or 4")
 
+
 def customer_operation():
     print("****Welcome to customer service***")
     print("----------------------------------")
     customer_ops = int(input("Choose your operation:\n"
-                            "[1] Load customer data to array\n"
-                            "[2] Insert new customer\n"
-                            "[3] Delete a customer\n"
-                            "[4] Update a customer\n"
-                            "[5] Write Customer Data into a File\n"
-                            "[6] Exit\n"))
+                             "[1] Load customer data to array\n"
+                             "[2] Insert new customer\n"
+                             "[3] Delete a customer\n"
+                             "[4] Update a customer\n"
+                             "[5] Write Customer Data into a File\n"
+                             "[6] Exit\n"))
     if customer_ops == 1:
-        pass
+        customer_list.append(customer_data())
+        print(customer_list)
     elif customer_ops == 2:
-        pass
+        customer_list.append(customer_data())
+        print(customer_list)
     elif customer_ops == 3:
-        pass
+        del_customer(customer_list)
+        print(customer_list)
     elif customer_ops == 4:
-        pass
+        update_customer(customer_list)
+        print(customer_list)
     elif customer_ops == 5:
-        pass
+        customer_file()
     elif customer_ops == 6:
         exit()
     else:
         print("Operation not available, try again")
 
+
 def product_operation():
-    print("****Welcome to Product operations****" )
+    product_data = []
+    print("****Welcome to Product operations****")
     print("-------------------------------------")
     product_ops = int(input("Choose your operation:\n"
                             "[1] Load product data to array\n"
@@ -59,21 +75,26 @@ def product_operation():
                             "[6] Purchase product\n"
                             "[7} Exit\n"))
     if product_ops == 1:
-        pass
+        product_list.append(product_data())
+        print(product_list)
     elif product_ops == 2:
-        pass
+        product_list.append(product_data())
+        print(product_list)
     elif product_ops == 3:
-        pass
+        product_list.append(del_product())
+        print(product_list)
     elif product_ops == 4:
-        pass
+        product_list.append(update_product())
+        print(product_list)
     elif product_ops == 5:
-        pass
+        product_file()
     elif product_ops == 6:
-        pass
+        product_purchase()
     elif product_ops == 7:
         exit()
     else:
         print("Operation not available, try again")
+
 
 def queries():
     print("*****Welcome to the queries section*****")
@@ -86,9 +107,9 @@ def queries():
                            "[5] Quit\n"))
     if queries_op == 1:
         pass
-    if queries_op == 2:
+    elif queries_op == 2:
         pass
-    if queries_op == 3:
+    elif queries_op == 3:
         pass
     elif queries_op == 4:
         pass
@@ -97,6 +118,91 @@ def queries():
     else:
         print("Operation not available, Try again")
 
+
+def customer_data():
+    customer_name = input("Enter the customer name:\n")
+    customer_address = input("Enter the customer address:\n")
+    customer_id = id(customer_name)
+    dict = {"id": customer_id, "name": customer_name, "address": customer_address}
+    return dict
+
+
+def del_customer(customer_list):
+    customer_id = input("Enter customer id:\n")
+    for i in range(len(customer_list)):
+        c_id = customer_list[i]["id"]
+        if c_id == customer_id:
+            customer_list.remove(customer_list[i])
+    return customer_list
+
+
+def update_customer(customer_list):
+    customer_id = input("Enter the customer id:")
+    update_option = int(input("Enter option\n [1] for name change\n [2] for address change\n"))
+    for i in range(len(customer_list)):
+        c_id = customer_list[i]["id"]
+        if c_id == customer_id:
+            if update_option == 1:
+                name = input("Enter the new name:")
+                customer_list[i]['name'] = name
+            elif update_option == 2:
+                address = input("Enter the new address:")
+                customer_list[i]['address'] = address
+    return customer_list
+
+
+def customer_file():
+    cfile = open("customer_data.txt", "w")
+    customer_data()
+    print(dict, file=cfile)
+    cfile.close()
+
+def product_data():
+    p_name = input("Enter the product name:")
+    p_amount = int(input("Enter the product quantity amount:"))
+    p_price = float(input("Enter the product price:"))
+    p_id = id(p_name)
+    dict = {"product id": p_id, "product name": p_name, "Quantity": p_amount, "price": p_price}
+    return dict
+
+
+def del_product():
+    product_id = input("Enter the product id:\n")
+    for i in range(len(product_list)):
+        id_p = product_list[i]["id"]
+        if id_p == product_id:
+            pdata.remove(p_data[i])
+    return p_data
+
+
+def update_product():
+    product_id = input("Enter the customer id:")
+    update_option = int(input("Enter option\n [1] for quantity change\n [2] for price change\n"))
+    for i in range(len(product_list)):
+        c_id = (product_list[i]["id"])
+        if id_p == product_id:
+            if update_option == 1:
+                quantity = input("Enter the new quantity:")
+                p_data[i]['Quantity'] = quantity
+            elif update_option == 2:
+                price = input("Enter the new price:")
+                customer_list[i]['price'] = price
+    return product_list
+
+
+def product_file():
+    pfile = open("product_data.txt", "w")
+    product_data()
+    print(dict, file=pfile)
+    pfile.close()
+
+
+def product_purchase():
+    p_id = input("Enter the product id:\n")
+    c_id = input("Enter the customer id:\n")
+    p_amount = input("Enter the quantity purchased:\n")
+
 main()
+
 
 
