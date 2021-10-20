@@ -106,13 +106,13 @@ def queries():
                            "[4] List a customer\n"
                            "[5] Quit\n"))
     if queries_op == 1:
-        pass
+        search_product()
     elif queries_op == 2:
-        pass
+        print(customer_list)
     elif queries_op == 3:
-        pass
+        print(product_list)
     elif queries_op == 4:
-        pass
+        list_customer()
     elif queries_op == 5:
         quit()
     else:
@@ -153,8 +153,7 @@ def update_customer(customer_list):
 
 def customer_file():
     cfile = open("customer_data.txt", "w")
-    customer_data()
-    print(dict, file=cfile)
+    print(customer_list, file=cfile)
     cfile.close()
 
 def product_data():
@@ -171,36 +170,70 @@ def del_product():
     for i in range(len(product_list)):
         id_p = product_list[i]["id"]
         if id_p == product_id:
-            pdata.remove(p_data[i])
-    return p_data
+            product_list.remove(product_list[i])
+    return product_list
 
 
 def update_product():
     product_id = input("Enter the customer id:")
     update_option = int(input("Enter option\n [1] for quantity change\n [2] for price change\n"))
     for i in range(len(product_list)):
-        c_id = (product_list[i]["id"])
+        id_p = (product_list[i]["id"])
         if id_p == product_id:
             if update_option == 1:
                 quantity = input("Enter the new quantity:")
-                p_data[i]['Quantity'] = quantity
+                product_list[i]['Quantity'] = quantity
             elif update_option == 2:
                 price = input("Enter the new price:")
-                customer_list[i]['price'] = price
+                product_list[i]['price'] = price
     return product_list
 
 
 def product_file():
     pfile = open("product_data.txt", "w")
-    product_data()
-    print(dict, file=pfile)
+    print(product_list, file=pfile)
     pfile.close()
 
 
 def product_purchase():
-    p_id = input("Enter the product id:\n")
     c_id = input("Enter the customer id:\n")
-    p_amount = input("Enter the quantity purchased:\n")
+    for i in range(len(customer_list)):
+        if c_id == customer_list[i]['id']:
+            print("proceed with the purchase")
+        else:
+            print("Input the customer data:")
+            customer_data()
+    p_id = input("Enter the product id:\n")
+    for i in range(len(product_list)):
+        if p_id == product_list[i]['id']:
+            p_amount = int(input("Enter the quantity purchased:\n"))
+            if p_amount <= product_list[i]['Quantity']:
+                product_list[i]['Quantity'] - p_amount
+                print("Product Purchased")
+            else:
+                print("Product is out of stock")
+        else:
+            print("Product not available in the database")
+    return product_list
+
+def search_product():
+    p_id = input("Enter the product ID:\n")
+    for i in range(len(product_list)):
+        product_id = product_list[i]['id']
+        if p_id == product_id:
+            print(product_list[i])
+        else:
+            print("Product not available")
+
+def list_customer():
+    c_id = input("Enter the customer ID:\n")
+    for i in range(len(customer_list)):
+        customer_id = customer_list[i]['id']
+        if c_id == customer_id:
+            print(customer_list[i])
+        else:
+            print("customer not available")
+
 
 main()
 
