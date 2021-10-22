@@ -90,6 +90,7 @@ def product_operation():
         product_file()
     elif product_ops == 6:
         product_purchase()
+        print(product_list)
     elif product_ops == 7:
         exit()
     else:
@@ -120,16 +121,16 @@ def queries():
 
 
 def customer_data():
+    customer_id = input("Input a customer id")
     customer_name = input("Enter the customer name:\n")
-    customer_address = input("Enter the customer address:\n")
-    customer_id = id(customer_name)
+    customer_address = int(input("Enter the customer address:\n"))
     dict = {"id": customer_id, "name": customer_name, "address": customer_address}
     return dict
 
 
 def del_customer(customer_list):
     customer_id = input("Enter customer id:\n")
-    for i in range(len(customer_list)):
+    for i in range(len(customer_list)-1):
         c_id = customer_list[i]["id"]
         if c_id == customer_id:
             customer_list.remove(customer_list[i])
@@ -200,20 +201,22 @@ def product_purchase():
     for i in range(len(customer_list)):
         if c_id == customer_list[i]['id']:
             print("proceed with the purchase")
-        else:
-            print("Input the customer data:")
+            p_id = input("Enter the product id:\n")
+            for i in range(len(product_list)):
+                if p_id == product_list[i]['id']:
+                    p_amount = int(input("Enter the quantity purchased:\n"))
+                    if p_amount <= int(product_list[i]['Quantity']):
+                        product_list[i]['Quantity'] = int(product_list[i]['Quantity']) - p_amount
+                        print("Product Purchased")
+                    else:
+                        print("Product is out of stock")
+                else:
+                    print("product unavailable")
+        elif c_id != customer_list[i]['id']:
+            print("customer not available: Input the customer details")
             customer_data()
-    p_id = input("Enter the product id:\n")
-    for i in range(len(product_list)):
-        if p_id == product_list[i]['id']:
-            p_amount = int(input("Enter the quantity purchased:\n"))
-            if p_amount <= product_list[i]['Quantity']:
-                product_list[i]['Quantity'] - p_amount
-                print("Product Purchased")
-            else:
-                print("Product is out of stock")
-        else:
-            print("Product not available in the database")
+            exit()
+
     return product_list
 
 def search_product():
