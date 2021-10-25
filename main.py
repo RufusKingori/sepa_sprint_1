@@ -1,6 +1,5 @@
 # This program is used by kings foods and beverages staff to order foods and drinks for it's customers.
 
-# This is the main menu
 
 customer_list = [{'id': '2709', 'name': 'rufus', 'address': '40'},
                  {'id': '1439', 'name': 'faith', 'address': '24'},
@@ -155,13 +154,14 @@ def update_customer(customer_list):
 def customer_file():
     cfile = open("customer_data.txt", "w")
     print(customer_list, file=cfile)
+    print(customer_data(), file=cfile)
     cfile.close()
 
 def product_data():
+    p_id = input("Enter the product id:")
     p_name = input("Enter the product name:")
     p_amount = int(input("Enter the product quantity amount:"))
     p_price = float(input("Enter the product price:"))
-    p_id = id(p_name)
     dict = {"product id": p_id, "product name": p_name, "Quantity": p_amount, "price": p_price}
     return dict
 
@@ -193,6 +193,7 @@ def update_product():
 def product_file():
     pfile = open("product_data.txt", "w")
     print(product_list, file=pfile)
+    print(product_data(),file=pfile)
     pfile.close()
 
 
@@ -208,10 +209,14 @@ def product_purchase():
                     if p_amount <= int(product_list[i]['Quantity']):
                         product_list[i]['Quantity'] = int(product_list[i]['Quantity']) - p_amount
                         print("Product Purchased")
+                        print(product_list[i])
+                        exit()
                     else:
                         print("Product is out of stock")
+                        exit()
                 else:
                     print("product unavailable")
+                    exit()
         elif c_id != customer_list[i]['id']:
             print("customer not available: Input the customer details")
             customer_data()
