@@ -109,13 +109,17 @@ def queries():
         print("Operation not available, Try again")
 
 def customer_data():
-    c_id = input("Enter the customer ID")
+    infile = open("customer_data.txt", "w")
+    c_id = int(input("Enter the customer ID"))
     customer_id.append(c_id)
     c_name = input("Enter the customer name")
     customer_name.append(c_name)
     c_address = input("Enter the customer address")
     customer_address.append(c_address)
-    return customer_name
+    print(customer_id,customer_name,customer_address,file=infile)
+    infile.close()
+
+
 
 
 def purchase():
@@ -123,45 +127,53 @@ def purchase():
     my_cost = []
     counter = 0
     total = 0
-    next_order = True
-    while next_order == True:
-        food_order = input("Enter your order:")
-        if food_order =="burger":
-            my_order.append(product_name[0])
-            my_cost.append(product_price[0])
-            counter = counter + 1
-            total = total + (product_price[0])
-        elif food_order == "chips":
-            my_order.append(product_name[1])
-            my_cost.append(product_price[1])
-            counter = counter + 1
-            total = total + (product_price[1])
-        elif food_order == "buns":
-            my_order.append(product_name[2])
-            my_cost.append(product_price[2])
-            counter = counter + 1
-            total = total + (product_price[2])
-        elif food_order == "soda":
-            my_order.append(product_name[3])
-            my_cost.append(product_price[3])
-            counter = counter + 1
-            total = total + (product_price[3])
-        elif food_order == "cheese":
-            my_order.append(product_name[4])
-            my_cost.append(product_price[4])
+    customer = input("Enter the customer name:")
+    if customer in customer_name:
+        next_order = True
+        while next_order == True:
+            food_order = input("Enter your order:")
+            if food_order =="burger":
+                my_order.append(product_name[0])
+                my_cost.append(product_price[0])
+                counter = counter + 1
+                total = total + (product_price[0])
+            elif food_order == "chips":
+                my_order.append(product_name[1])
+                my_cost.append(product_price[1])
+                counter = counter + 1
+                total = total + (product_price[1])
+            elif food_order == "buns":
+                my_order.append(product_name[2])
+                my_cost.append(product_price[2])
+                counter = counter + 1
+                total = total + (product_price[2])
+            elif food_order == "soda":
+                my_order.append(product_name[3])
+                my_cost.append(product_price[3])
+                counter = counter + 1
+                total = total + (product_price[3])
+            elif food_order == "cheese":
+                my_order.append(product_name[4])
+                my_cost.append(product_price[4])
+                counter = counter + 1
+                total = total + (product_price[4])
             else:
-            print("Order not in the menu")
-        finished = input("Have you finished ordering?")
-        if finished == "no":
-            next_order = True
-        else:
-            next_order = False
-    print("Here is your order")
-    y = 0
-    while y < counter:
-        print("Item: ", (my_order[y]))
-        print("Cost: $", (my_cost[y]))
-        y = y + 1
-    print("The total cost of your order is $", (total))
-
-
+                print("Order not in the menu")
+            finished = input("Have you finished ordering?(yes/no):\n")
+            if finished == "no":
+                next_order = True
+            else:
+                next_order = False
+        print("Here is your order",(customer))
+        y = 0
+        while y < counter:
+            print("Item: ", (my_order[y]))
+            print("Cost: $", (my_cost[y]))
+            y = y + 1
+        print("The total cost of your order is $", (total))
+        exit()
+    else:
+        print("Customer not available in the database: enter customer details")
+        customer_data()
+        exit()
+purchase()
