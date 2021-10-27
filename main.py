@@ -200,11 +200,11 @@ def product_file():
 def product_purchase():
     c_id = input("Enter the customer id:\n")
     for i in range(len(customer_list)):
-        if c_id == customer_list[i]['id']:
+        if c_id in customer_list[i]['id']:
             print("proceed with the purchase")
             p_id = input("Enter the product id:\n")
             for i in range(len(product_list)):
-                if p_id == product_list[i]['id']:
+                if p_id in product_list[i]['id']:
                     p_amount = int(input("Enter the quantity purchased:\n"))
                     if p_amount <= int(product_list[i]['Quantity']):
                         product_list[i]['Quantity'] = int(product_list[i]['Quantity']) - p_amount
@@ -220,6 +220,7 @@ def product_purchase():
         elif c_id != customer_list[i]['id']:
             print("customer not available: Input the customer details")
             customer_data()
+            customer_file()
             exit()
 
     return product_list
