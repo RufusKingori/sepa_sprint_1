@@ -1,12 +1,13 @@
 customer_id = [114,277,290,154,139]
 customer_name = ["amon","faith","albert","alfred","brenda"]
 customer_address =[224,187,666,144,987]
+customer_list = [customer_id,customer_name,customer_address]
 
 product_id = [45,20,64,98,41,20]
 product_name = ["burger","chips","buns","soda","cheese"]
 product_amount = [15,20,8,12,14]
 product_price = [150,200,80,120,40]
-
+product_list = [product_id,product_name,product_amount,product_price]
 
 
 def main():
@@ -176,4 +177,3 @@ def purchase():
         print("Customer not available in the database: enter customer details")
         customer_data()
         exit()
-purchase()

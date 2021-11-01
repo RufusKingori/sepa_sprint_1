@@ -1,19 +1,19 @@
 # This program is used by kings foods and beverages staff to order foods and drinks for it's customers.
 
-
+# Pre-existing customer and product lists
 customer_list = [{'id': '2709', 'name': 'rufus', 'address': '40'},
                  {'id': '1439', 'name': 'faith', 'address': '24'},
-                 {'id': '3520', 'name': 'amoon', 'address': '56'}]
+                 {'id': '3520', 'name': 'amon', 'address': '56'}]
 product_list = [{'id': '4056', 'name': 'fries', 'Quantity': '10', 'price': '200'},
                 {'id': '2589', 'name': 'buns', 'Quantity': '20', 'price': '120'},
                 {'id': '7860', 'name': 'smokies', 'Quantity': '32', 'price': '50'},
                 {'id': '7410', 'name': 'soda', 'Quantity': '55', 'price': '60'}]
-
+purchase_list = [{"c_name":"rufus","p_name":"buns","quantity":"5","price":"120"}]
 
 def main():
     print("*****Welcome to Kings foods and beverages*****")
     print("----------------------------------------------")
-    operation = int(input("Choose your operation\n"
+    operation = int(input("Choose your operation\n"     #main menu
                           "[1] Customer operations\n"
                           "[2] Product operations\n"
                           "[3] Queries\n"
@@ -34,7 +34,8 @@ def main():
 def customer_operation():
     print("****Welcome to customer service***")
     print("----------------------------------")
-    customer_ops = int(input("Choose your operation:\n"
+    #Customer operations menu
+    customer_ops = int(input("Choose your operation:\n"       
                              "[1] Load customer data to array\n"
                              "[2] Insert new customer\n"
                              "[3] Delete a customer\n"
@@ -65,6 +66,7 @@ def product_operation():
     product_data = []
     print("****Welcome to Product operations****")
     print("-------------------------------------")
+    #Product operations menu
     product_ops = int(input("Choose your operation:\n"
                             "[1] Load product data to array\n"
                             "[2] Insert a new product\n"
@@ -99,6 +101,7 @@ def product_operation():
 def queries():
     print("*****Welcome to the queries section*****")
     print("----------------------------------------")
+    #Queries menu
     queries_op = int(input("Choose your operation:\n"
                            "[1] Search a product\n"
                            "[2] List all customers\n"
@@ -120,6 +123,7 @@ def queries():
 
 
 def customer_data():
+    #This function adds a customer into the customer list
     customer_id = input("Input a customer id")
     customer_name = input("Enter the customer name:\n")
     customer_address = int(input("Enter the customer address:\n"))
@@ -128,20 +132,22 @@ def customer_data():
 
 
 def del_customer(customer_list):
+    #This function deletes a customer from the list
     customer_id = input("Enter customer id:\n")
     for i in range(len(customer_list)-1):
         c_id = customer_list[i]["id"]
-        if c_id == customer_id:
+        if customer_id in c_id:
             customer_list.remove(customer_list[i])
     return customer_list
 
 
-def update_customer(customer_list):
+def update_customer():
+    #This function updates customer details by either the name or the address in the customer list.
     customer_id = input("Enter the customer id:")
     update_option = int(input("Enter option\n [1] for name change\n [2] for address change\n"))
     for i in range(len(customer_list)):
         c_id = customer_list[i]["id"]
-        if c_id == customer_id:
+        if customer_id in c_id:
             if update_option == 1:
                 name = input("Enter the new name:")
                 customer_list[i]['name'] = name
@@ -152,12 +158,14 @@ def update_customer(customer_list):
 
 
 def customer_file():
+    #This function writes the customer list into a file
     cfile = open("customer_data.txt", "w")
     print(customer_list, file=cfile)
     print(customer_data(), file=cfile)
     cfile.close()
 
 def product_data():
+    #This function adds a product into the list of products.
     p_id = input("Enter the product id:")
     p_name = input("Enter the product name:")
     p_amount = int(input("Enter the product quantity amount:"))
@@ -167,20 +175,22 @@ def product_data():
 
 
 def del_product():
+    #This function deletes a product from the list of products
     product_id = input("Enter the product id:\n")
     for i in range(len(product_list)):
         id_p = product_list[i]["id"]
-        if id_p == product_id:
+        if product_id in id_p:
             product_list.remove(product_list[i])
     return product_list
 
 
 def update_product():
+    #This function deletes a product from the list of products
     product_id = input("Enter the customer id:")
     update_option = int(input("Enter option\n [1] for quantity change\n [2] for price change\n"))
     for i in range(len(product_list)):
         id_p = (product_list[i]["id"])
-        if id_p == product_id:
+        if product_id in id_p:
             if update_option == 1:
                 quantity = input("Enter the new quantity:")
                 product_list[i]['Quantity'] = quantity
@@ -191,6 +201,7 @@ def update_product():
 
 
 def product_file():
+    #This function writes the list of products into a file product_data.txt
     pfile = open("product_data.txt", "w")
     print(product_list, file=pfile)
     print(product_data(),file=pfile)
@@ -198,6 +209,11 @@ def product_file():
 
 
 def product_purchase():
+    #This functions reads a customer's id from the list of customers.
+    #It reads a product's id from the list of products.
+    #The program asks the user to imput the quantity of the product to purchase.
+    #The program deducts the quantity in the list to quantity input.
+
     c_id = input("Enter the customer id:\n")
     for i in range(len(customer_list)):
         if c_id in customer_list[i]['id']:
@@ -210,41 +226,57 @@ def product_purchase():
                         product_list[i]['Quantity'] = int(product_list[i]['Quantity']) - p_amount
                         print("Product Purchased")
                         print(product_list[i])
-                        exit()
                     else:
                         print("Product is out of stock")
-                        exit()
+                        break
                 else:
                     print("product unavailable")
                     exit()
-        elif c_id != customer_list[i]['id']:
-            print("customer not available: Input the customer details")
-            customer_data()
-            customer_file()
-            exit()
 
-    return product_list
+            return product_list
+
+
 
 def search_product():
+    #This function loops through the product list for the product id
     p_id = input("Enter the product ID:\n")
     for i in range(len(product_list)):
         product_id = product_list[i]['id']
-        if p_id == product_id:
+        if p_id in product_id:
             print(product_list[i])
         else:
             print("Product not available")
 
 def list_customer():
+    #This function loops through the list of customers searching for the customer with the id input
     c_id = input("Enter the customer ID:\n")
     for i in range(len(customer_list)):
         customer_id = customer_list[i]['id']
         if c_id == customer_id:
             print(customer_list[i])
+            break
         else:
             print("customer not available")
 
 
+def purchase_data():
+    #This program writes to file the customer's name, products purchased, quantity purchased
+    #and the total amout to be paid.
+    purchase_amount = []
+    total = 0
+    id_customer = input("Enter the customer id:")
+    for id_customer in range(len(purchase_list)):
+        c_id = purchase_list[i]["id"]
+        if c_id == id_customer:
+            customer_name = purchase_list[i]['c_name']
+
+
+
 main()
+
+
+
+
 
 
 
