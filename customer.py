@@ -7,12 +7,6 @@ product_list = [{'id': '4056', 'name': 'fries', 'Quantity': '10', 'price': '200'
                 {'id': '7860', 'name': 'smokies', 'Quantity': '32', 'price': '50'},
                 {'id': '7410', 'name': 'soda', 'Quantity': '55', 'price': '60'}]
 
-class customer:
-    def __init__(self,c_id,c_name,c_address):
-        self.id = c_id
-        self.name = c_name
-        self.name = c_address
-
 def customer_operation():
     print("****Welcome to customer service***")
     print("----------------------------------")
@@ -110,4 +104,4 @@ def customer_file():
     print(customer_data(), file=cfile)
     cfile.close()
 
-
+customer_operation()

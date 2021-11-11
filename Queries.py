@@ -11,14 +11,7 @@ purchase_list = [{"c_id":"2709","c_name":"rufus","p_name":"buns","quantity":"3",
                  {"c_id":"1439","c_name":"faith","p_name":"soda","quantity":"2","price":"60"},
                  {"c_id":"3520","c_name":"amon","p_name":"fries","quantity":"2","price":"200"},
                  {"c_id":"1439","c_name":"faith","p_name":"smokies","quantity":"5","price":"50"}]
-class queries:
-    def __init__(self,c_id,c_name,p_id,p_name,p_quantity,p_price):
-        self.c_id = c_id
-        self.c_name = c_name
-        self.p_id = p_id
-        self.p_name = p_name
-        self.p_quantity = p_quantity
-        self.p_price = p_price
+
 def queries():
     print("*****Welcome to the queries section*****")
     print("----------------------------------------")
@@ -52,6 +45,15 @@ def queries():
     else:
         print("Operation not available, Try again")
         queries()
+
+class queries:
+    def __init__(self,c_id,c_name,p_id,p_name,p_quantity,p_price):
+        self.c_id = c_id
+        self.c_name = c_name
+        self.p_id = p_id
+        self.p_name = p_name
+        self.p_quantity = p_quantity
+        self.p_price = p_price
 
 def search_product():
     #This function loops through the product list for the product id
